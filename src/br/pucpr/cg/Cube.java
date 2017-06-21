@@ -120,18 +120,18 @@ public class Cube implements Scene {
             return;
         }
 
-        if (keys.isDown(GLFW_KEY_D)) {
+        if (keys.isDown(GLFW_KEY_A)) {
             angleY += Math.toRadians(180) * secs;
         }
 
-        if (keys.isDown(GLFW_KEY_A)) {
+        if (keys.isDown(GLFW_KEY_D)) {
             angleY -= Math.toRadians(180) * secs;
         }
 
-        if (keys.isDown(GLFW_KEY_W)) {
+        if (keys.isDown(GLFW_KEY_S)) {
             angleX += Math.toRadians(180) * secs;
         }
-        if (keys.isDown(GLFW_KEY_S)) {
+        if (keys.isDown(GLFW_KEY_W)) {
             angleX -= Math.toRadians(180) * secs;
         }
     }
