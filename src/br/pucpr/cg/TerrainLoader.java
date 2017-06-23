@@ -49,7 +49,7 @@ public class TerrainLoader implements Scene{
         glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 
         try {
-            mesh = MeshFactory.loadTerrain(new File("C:/img/opengl/heights/chavalier.png"), 0.5f);
+            mesh = MeshFactory.loadTerrain(new File("C:/img/opengl/heights/chavalier.jpg"), 0.5f);
             System.out.println("ok!");
         } catch (IOException e){
             e.printStackTrace();
