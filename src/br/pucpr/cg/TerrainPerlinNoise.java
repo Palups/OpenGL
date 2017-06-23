@@ -35,7 +35,7 @@ public class TerrainPerlinNoise implements Scene{
             new Vector3f(1.0f, 1.0f, 1.0f), //ambient
             new Vector3f(0.7f, 0.7f, 0.7f), //diffuse
             new Vector3f(1.0f, 1.0f, 1.0f), //specular
-            512.0f  //specular power
+            1000.0f  //specular power
     );
 
     private float angleX = 0.0f;
@@ -52,12 +52,12 @@ public class TerrainPerlinNoise implements Scene{
         glPolygonMode(GL_FRONT_FACE, GL_LINE);
         glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 
-        width = 100;
-        height = 100;
+        width = 500;
+        height = 500;
         noise = new Noise(width, height, 0);
 
         try {
-            mesh = MeshFactory.loadTerrain(noise.GetNoise(), 0.5f);
+            mesh = MeshFactory.loadTerrain(noise.GetNoise(), 100.0f);
             System.out.println("ok!");
         } catch (IOException e){
             e.printStackTrace();

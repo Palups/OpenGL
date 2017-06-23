@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Palups on 19/06/2017.
+ * Created by Palups on 22/06/2017.
  */
 public class MeshFactory  {
     public static Mesh loadTerrain(File file, float scale) throws IOException {
@@ -94,7 +94,7 @@ public class MeshFactory  {
         int width = value.length;
         int depth = value[0].length;
 
-        float hw = width / 2.0f;
+        float hw = width / 2.0f; //Deixa o terreno centralizado
         float hd = depth / 2.0f;
 
         // Criação dos vértices
@@ -102,6 +102,7 @@ public class MeshFactory  {
         for (int z = 0; z < depth; z++) {
             for (int x = 0; x < width; x++) {
                 float tone = value[x][z];
+                System.out.println(tone);
                 positions.add(new Vector3f(x - hw, tone * scale, z - hd));
             }
         }
@@ -244,4 +245,5 @@ public class MeshFactory  {
                 .loadShader("/br/pucpr/resource/phongDir")
                 .create();
     }
+
 }

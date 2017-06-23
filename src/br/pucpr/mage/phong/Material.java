@@ -9,7 +9,7 @@ public class Material {
     private Vector3f diffuseColor;
     private Vector3f specularColor;
     private float specularPower;
-    
+
     public Material(Vector3f ambientColor, Vector3f diffuseColor, Vector3f specularColor, float specularPower) {
         super();
         this.ambientColor = ambientColor;
@@ -17,6 +17,13 @@ public class Material {
         this.specularColor = specularColor;
         this.specularPower = specularPower;
     }
+    public void setDiffuse() {
+        //ambientColor = new Vector3f(0.8f, 0.0f, 0.8f);
+        diffuseColor = new Vector3f(0.80f, 0.0f, 0.80f);
+        //specularColor = new Vector3f(1.0f, 1.0f, 1.0f);
+        //specularPower = 128f;
+    }
+
     public Material(Vector3f ambient, Vector3f diffuse) {
         this(ambient, diffuse, new Vector3f(), 0.0f);
     }
@@ -24,11 +31,11 @@ public class Material {
     public Material(Vector3f color) {
         this(color, color, new Vector3f(), 0.0f);
     }
-    
+
     public Material() {
         this(new Vector3f(1.0f, 1.0f, 1.0f));
     }
-    
+
     public Vector3f getAmbientColor() {
         return ambientColor;
     }
@@ -41,11 +48,11 @@ public class Material {
     public float getSpecularPower() {
         return specularPower;
     }
-    
+
     public void setSpecularPower(float specularPower) {
         this.specularPower = specularPower;
-    }    
-    
+    }
+
     public void apply(Shader shader) {
         shader.setUniform("uAmbientMaterial", ambientColor);
         shader.setUniform("uDiffuseMaterial", diffuseColor);

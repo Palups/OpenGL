@@ -9,7 +9,7 @@ public class DirectionalLight {
     private Vector3f ambient;
     private Vector3f diffuse;
     private Vector3f specular;
-    
+
     public DirectionalLight(Vector3f direction, Vector3f ambient, Vector3f diffuse, Vector3f specular) {
         super();
         this.direction = direction;
@@ -33,9 +33,9 @@ public class DirectionalLight {
     public Vector3f getSpecular() {
         return specular;
     }
-    
+
     public void apply(Shader shader) {
-        shader.setUniform("uLightDir", direction.normalize(new Vector3f()));
+        shader.setUniform("uLightDir", direction);
         shader.setUniform("uAmbientLight", ambient);
         shader.setUniform("uDiffuseLight", diffuse);
         shader.setUniform("uSpecularLight", specular);

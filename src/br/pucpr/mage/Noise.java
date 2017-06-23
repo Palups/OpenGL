@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 /**
- * Created by Mylla on 22/06/2017.
+ * Created by Palups on 22/06/2017.
  * Trabalho e TDE Perlim Noise
  */
 public class Noise {
@@ -18,7 +18,7 @@ public class Noise {
         this.height = y;
         this.seed = seed;
 
-        noise = GeneratePerlinNoise(GenerateWhiteNoise(width, height), 6);
+        noise = GeneratePerlinNoise(GenerateWhiteNoise(width, height), 7);
     }
 
     public float[][] GetNoise() {
@@ -30,17 +30,21 @@ public class Noise {
      * @param height Altura do noise
      * @return Retorna o array gerado
      */
-    public float[][] GenerateWhiteNoise(int width, int height) {
-        Random random = new Random(seed); //seed para 0
 
-        float[][] generatedNoise = new float[width][height];
+    public float[][] GenerateWhiteNoise(int width, int height)
+    {
+        Random random = new Random(seed);
+        float[][] noise = new float[width][height];
 
-        for (int i = 0; i < width; i++) {
-            for (int j = 0; j < height; j++) {
-                generatedNoise[i][j] = (float) random.nextDouble() % 1;
+        for (int i = 0; i < width; i++)
+        {
+            for (int j = 0; j < height; j++)
+            {
+                noise[i][j] = (float)random.nextDouble() % 1;
             }
         }
-        return generatedNoise;
+
+        return noise;
     }
 
     /**
@@ -49,50 +53,59 @@ public class Noise {
      * @param octave numero de octaves
      * @return Retorna array
      */
-    public float[][] GenerateSmoothNoise(float[][] baseNoise, int octave) {
+
+    float[][] GenerateSmoothNoise(float[][] baseNoise, int octave)
+    {
         int width = baseNoise.length;
         int height = baseNoise[0].length;
 
         float[][] smoothNoise = new float[width][height];
-        //int samplePeriod = (int)Math.pow(2, octave);  //2 ^ k
-        int samplePeriod = 1 << octave; //transição de bits
-        float sampleFrequency = 1.0f / (float)samplePeriod;
 
-        for (int i = 0; i < width; i++) {
+        int samplePeriod = (int) Math.pow(2, octave);
+        float sampleFrequency = 1.0f / samplePeriod;
 
-            //Calcula os indices horizontais
-            int sample_a = (i / samplePeriod) * samplePeriod;
-            int sample_b = (sample_a + samplePeriod) % height;
-            float horizontalBlend = (i - sample_a) * sampleFrequency;
+        for (int i = 0; i < width; i++)
+        {
+            //calculate the horizontal sampling indices
+            int i0 = (i / samplePeriod) * samplePeriod;
+            int i1 = (i0 + samplePeriod) % width; //wrap around
+            float horizontal_blend = (i - i0) * sampleFrequency;
 
-            for (int j = 0; j < height; j++) {
-                //Calcula os indices verticais
-                int sample_c = (j / samplePeriod) * samplePeriod;
-                int sample_d = (sample_c + samplePeriod) % height;
-                float verticalBlend = (j - sample_c) * sampleFrequency;
+            for (int j = 0; j < height; j++)
+            {
+                //calculate the vertical sampling indices
+                int j0 = (j / samplePeriod) * samplePeriod;
+                int j1 = (j0 + samplePeriod) % height; //wrap around
+                float vertical_blend = (j - j0) * sampleFrequency;
 
-                //Mistura os cantos superiores
-                float top = Interpolate(baseNoise[sample_a][sample_c], baseNoise[sample_b][sample_c], horizontalBlend);
+                //blend the top two corners
+                float top = Interpolate(baseNoise[i0][j0],
+                        baseNoise[i1][j0], horizontal_blend);
 
-                //Mistura os cantos inferiores
-                float bottom = Interpolate(baseNoise[sample_a][sample_d], baseNoise[sample_b][sample_d], horizontalBlend);
+                //blend the bottom two corners
+                float bottom = Interpolate(baseNoise[i0][j1],
+                        baseNoise[i1][j1], horizontal_blend);
 
-                //Mistura final
-                smoothNoise[i][j] = Interpolate(top, bottom, verticalBlend);
+                //final blend
+                smoothNoise[i][j] = Interpolate(top, bottom, vertical_blend);
             }
         }
+
         return smoothNoise;
     }
 
-    private float[][] GeneratePerlinNoise(float[][] baseNoise, int octaveCount) {
+    float[][] GeneratePerlinNoise(float[][] baseNoise, int octaveCount)
+    {
         int width = baseNoise.length;
         int height = baseNoise[0].length;
 
-        float[][][] smoothNoise = new float[octaveCount][width][height];
-        float persistence = 0.5f;
+        float[][][] smoothNoise = new float[octaveCount][][]; //an array of 2D arrays containing
 
-        //Gera o smooth noise
-        for (int i = 0; i < octaveCount; i++) {
+        float persistance = 0.5f;
+
+        //generate smooth noise
+        for (int i = 0; i < octaveCount; i++)
+        {
             smoothNoise[i] = GenerateSmoothNoise(baseNoise, i);
         }
 
@@ -100,21 +113,26 @@ public class Noise {
         float amplitude = 1.0f;
         float totalAmplitude = 0.0f;
 
-        //Mistura os noise
-        for (int octave = octaveCount - 1; octave >= 0; octave--) {
-            amplitude *= persistence;
+        //blend noise together
+        for (int octave = octaveCount - 1; octave >= 0; octave--)
+        {
+            amplitude *= persistance;
             totalAmplitude += amplitude;
 
-            for (int i = 0; i < width; i++) {
-                for (int j = 0; j < height; j++) {
-                    perlinNoise[i][j] = smoothNoise[octave][i][j] * amplitude;
+            for (int i = 0; i < width; i++)
+            {
+                for (int j = 0; j < height; j++)
+                {
+                    perlinNoise[i][j] += smoothNoise[octave][i][j] * amplitude;
                 }
             }
         }
 
-        //Normaliza
-        for (int i = 0; i < width; i++) {
-            for (int j = 0; j < height; j++) {
+        //normalisation
+        for (int i = 0; i < width; i++)
+        {
+            for (int j = 0; j < height; j++)
+            {
                 perlinNoise[i][j] /= totalAmplitude;
             }
         }
@@ -122,7 +140,8 @@ public class Noise {
         return perlinNoise;
     }
 
-    private float Interpolate(float n, float m, float alpha) {
+    float Interpolate(float n, float m, float alpha)
+    {
         return n * (1 - alpha) + alpha * m;
     }
 }
