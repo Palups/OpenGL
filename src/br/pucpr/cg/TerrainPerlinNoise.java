@@ -6,36 +6,32 @@ import br.pucpr.mage.phong.Material;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
 
-import java.io.File;
 import java.io.IOException;
 
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.glfw.GLFW.GLFW_KEY_DOWN;
 import static org.lwjgl.glfw.GLFW.GLFW_KEY_UP;
 import static org.lwjgl.opengl.GL11.*;
-
 /**
  * Created by Palups on 22/06/2017.
  */
 public class TerrainPerlinNoise implements Scene{
     private Keyboard keys = Keyboard.getInstance();
 
-    //Dados da cena
     private Camera camera = new Camera();
     private DirectionalLight light = new DirectionalLight(
-            new Vector3f(1.0f, -3.0f, -1.0f), //direction
-            new Vector3f(0.02f, 0.02f, 0.02f),  //ambiente
-            new Vector3f(1.0f, 1.0f, 1.0f), //diffuse
-            new Vector3f(1.0f, 1.0f, 1.0f)  //specular
+            new Vector3f(1.0f, -3.0f, -1.0f),
+            new Vector3f(0.02f, 0.02f, 0.02f),
+            new Vector3f(1.0f, 1.0f, 1.0f),
+            new Vector3f(1.0f, 1.0f, 1.0f)
     );
 
-    //Dados da malha
     private Mesh mesh;
     private Material material = new Material(
-            new Vector3f(1.0f, 1.0f, 1.0f), //ambient
-            new Vector3f(0.7f, 0.7f, 0.7f), //diffuse
-            new Vector3f(1.0f, 1.0f, 1.0f), //specular
-            1000.0f  //specular power
+            new Vector3f(1.0f, 1.0f, 1.0f),
+            new Vector3f(0.7f, 0.7f, 0.7f),
+            new Vector3f(1.0f, 1.0f, 1.0f),
+            1000.0f
     );
 
     private float angleX = 0.0f;
@@ -78,43 +74,29 @@ public class TerrainPerlinNoise implements Scene{
             return;
         }
 
-        /**
-         * TDE: PERMITE O USUARIO SE MOVER NA CENA
-         *
-         */
-
-        if (keys.isDown(GLFW_KEY_W)) {
+        if (keys.isDown(GLFW_KEY_W))
             camera.moveFront(speed * secs);
-        }
 
-        if (keys.isDown(GLFW_KEY_S)) {
+        if (keys.isDown(GLFW_KEY_S))
             camera.moveFront(-speed * secs);
-        }
 
-        if (keys.isDown(GLFW_KEY_C)) {
+        if (keys.isDown(GLFW_KEY_C))
             camera.strafeRight(speed * secs);
-        }
 
-        if (keys.isDown(GLFW_KEY_Z)) {
+        if (keys.isDown(GLFW_KEY_Z))
             camera.strafeLeft(speed * secs);
-        }
 
-        if (keys.isDown(GLFW_KEY_LEFT)) {
+        if (keys.isDown(GLFW_KEY_LEFT))
             camera.rotate((float) Math.toRadians(rotateSpeed) * secs);
-        }
 
-        if (keys.isDown(GLFW_KEY_RIGHT)) {
+        if (keys.isDown(GLFW_KEY_RIGHT))
             camera.rotate(-(float) Math.toRadians(rotateSpeed) * secs);
-        }
 
-        if (keys.isDown(GLFW_KEY_UP)) {
+        if (keys.isDown(GLFW_KEY_UP))
             camera.rotateX((float) Math.toRadians(rotateSpeed) * secs);//moveUp(speed * secs);
-        }
 
-        if (keys.isDown(GLFW_KEY_DOWN)) {
+        if (keys.isDown(GLFW_KEY_DOWN))
             camera.rotateX(-(float) Math.toRadians(rotateSpeed) * secs);
-        }
-
     }
 
     @Override
@@ -138,7 +120,7 @@ public class TerrainPerlinNoise implements Scene{
     public void deinit() {}
 
     public static void main(String[] args) {
-        new Window(new TerrainPerlinNoise(), "Terrain", 1024,768).show();
+        new Window(new TerrainPerlinNoise(), "TDE terrain", 1024,768).show();
     }
 
 }

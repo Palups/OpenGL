@@ -13,29 +13,25 @@ import java.io.File;
 import java.io.IOException;
 /**
  * Created by Palups on 21/06/2017.
- */
-/**
  * A atividade 7 está neste mesmo projeto.
  */
 public class TerrainLoader implements Scene{
     private Keyboard keys = Keyboard.getInstance();
 
-    //Dados da cena
     private Camera camera = new Camera();
     private DirectionalLight light = new DirectionalLight(
-            new Vector3f(1.0f, -3.0f, -1.0f), //direction
-            new Vector3f(0.02f, 0.02f, 0.02f),  //ambiente
-            new Vector3f(1.0f, 1.0f, 1.0f), //diffuse
-            new Vector3f(1.0f, 1.0f, 1.0f)  //specular
+            new Vector3f(1.0f, -3.0f, -1.0f),
+            new Vector3f(0.02f, 0.02f, 0.02f),
+            new Vector3f(1.0f, 1.0f, 1.0f),
+            new Vector3f(1.0f, 1.0f, 1.0f)
     );
 
-    //Dados da malha
     private Mesh mesh;
     private Material material = new Material(
-            new Vector3f(1.0f, 1.0f, 1.0f), //ambient
-            new Vector3f(0.7f, 0.7f, 0.7f), //diffuse
-            new Vector3f(1.0f, 1.0f, 1.0f), //specular
-            512.0f  //specular power
+            new Vector3f(1.0f, 1.0f, 1.0f),
+            new Vector3f(0.7f, 0.7f, 0.7f),
+            new Vector3f(1.0f, 1.0f, 1.0f),
+            512.0f
     );
 
     private float angleX = 0.0f;
@@ -62,8 +58,8 @@ public class TerrainLoader implements Scene{
 
     @Override
     public void update(float secs) {
-        float rotateSpeed = 75.0f;
-        float speed = 100.0f;
+        float rotateSpeed = 50.0f;
+        float speed = 80.0f;
 
         if (keys.isPressed(GLFW_KEY_ESCAPE)) {
             glfwSetWindowShouldClose(glfwGetCurrentContext(), GLFW_TRUE);
@@ -71,43 +67,32 @@ public class TerrainLoader implements Scene{
         }
 
         /**
-         * W e S = movimentação para frente e para trás
+         * W = movimentação para frente.
+         * S = movimentação para trás.
          */
-        /*if (keys.isPressed(GLFW_KEY_H)) {
-        }*/
-
-        if (keys.isDown(GLFW_KEY_W)) {
+        if (keys.isDown(GLFW_KEY_W))
             camera.moveFront(speed * secs);
-        }
 
-        if (keys.isDown(GLFW_KEY_S)) {
+        if (keys.isDown(GLFW_KEY_S))
             camera.moveFront(-speed * secs);
-        }
 
-        if (keys.isDown(GLFW_KEY_C)) {
+        if (keys.isDown(GLFW_KEY_C))
             camera.strafeRight(speed * secs);
-        }
 
-        if (keys.isDown(GLFW_KEY_Z)) {
+        if (keys.isDown(GLFW_KEY_Z))
             camera.strafeLeft(speed * secs);
-        }
 
-        if (keys.isDown(GLFW_KEY_LEFT)) {
+        if (keys.isDown(GLFW_KEY_LEFT))
             camera.rotate((float) Math.toRadians(rotateSpeed) * secs);
-        }
 
-        if (keys.isDown(GLFW_KEY_RIGHT)) {
+        if (keys.isDown(GLFW_KEY_RIGHT))
             camera.rotate(-(float) Math.toRadians(rotateSpeed) * secs);
-        }
 
-        if (keys.isDown(GLFW_KEY_UP)) {
+        if (keys.isDown(GLFW_KEY_UP))
             camera.rotateX((float) Math.toRadians(rotateSpeed) * secs);//moveUp(speed * secs);
-        }
 
-        if (keys.isDown(GLFW_KEY_DOWN)) {
+        if (keys.isDown(GLFW_KEY_DOWN))
             camera.rotateX(-(float) Math.toRadians(rotateSpeed) * secs);
-        }
-
     }
 
     @Override
@@ -131,7 +116,7 @@ public class TerrainLoader implements Scene{
     public void deinit() {}
 
     public static void main(String[] args) {
-        new Window(new TerrainLoader(), "Terrain", 1024,768).show();
+        new Window(new TerrainLoader(), "Chavalier terrain", 1024,768).show();
     }
 
 }

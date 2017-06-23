@@ -10,14 +10,11 @@ import br.pucpr.mage.phong.PointLight;
 import org.joml.Matrix4f;
 
 import org.joml.Vector3f;
-
-import java.awt.*;
-
 /**
- * CLASSE CRIADA PARA TESTAR A LUZ POSICIONAL (POINT LIGHT) DO EXERCICIO 8
+ * Created by Palups on 21/06/2017.
+ * Classe utilizada para testar luz posicional (atividade 8).
  */
-
-public class LitCube implements Scene {
+public class CubeLight implements Scene {
     private Keyboard keys = Keyboard.getInstance();
 
     private Mesh mesh;
@@ -84,6 +81,6 @@ public class LitCube implements Scene {
     }
 
     public static void main(String[] args) {
-        new Window(new LitCube(), "Cube with lights", 800, 600).show();
+        new Window(new CubeLight(), "Illuminated cube", 800, 600).show();
     }
 }

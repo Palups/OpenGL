@@ -3,11 +3,6 @@ package br.pucpr.mage.phong;
 import br.pucpr.mage.Shader;
 import org.joml.Vector3f;
 
-import java.awt.*;
-
-/**
- * EXERCICIO 8: ADICIONE LUZ POSICIONAL. UTILIZE FATOR DE ATENUAÇÃO
- */
 public class PointLight {
     Vector3f position;
     Vector3f ambientLight;

@@ -14,6 +14,7 @@ import br.pucpr.mage.Window;
  * Created by Palups on 21/06/2017.
  */
 public class Cube implements Scene {
+
     private Keyboard keys = Keyboard.getInstance();
     private Mesh mesh;
     private float angleY = 10.0f;
@@ -57,6 +58,7 @@ public class Cube implements Scene {
                         -0.5f,  0.5f,  0.5f,   //21
                         -0.5f, -0.5f, -0.5f,  //22
                         -0.5f,  0.5f, -0.5f)  //23
+
                 .addVector3fAttribute("aColor",
                         //Face traseira
                         0.0f, 0.0f, 1.0f,

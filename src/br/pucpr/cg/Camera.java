@@ -2,18 +2,16 @@ package br.pucpr.cg;
 
 import org.joml.Matrix3f;
 import org.joml.Matrix4f;
-import org.joml.Quaternionf;
 import org.joml.Vector3f;
 import org.lwjgl.BufferUtils;
 
 import java.nio.IntBuffer;
-import java.util.Vector;
 
 import static org.lwjgl.glfw.GLFW.*;
+
 public class Camera {
     private Vector3f position = new Vector3f(0,0,2);
     private Vector3f direction = new Vector3f(0,-1,-1);
-    //private Vector3f target = new Vector3f(0, 0, -1);
     private Vector3f up = new Vector3f(0, 1, 0);
 
     private float fovy = (float)Math.toRadians(60);
@@ -55,9 +53,25 @@ public class Camera {
     public void setPosition(Vector3f value) {
         position = value;
     }
-    /*public Vector3f getTarget() {
-        return target;
-    }*/
+
+    public float getAspect() {
+        IntBuffer w = BufferUtils.createIntBuffer(1);
+        IntBuffer h = BufferUtils.createIntBuffer(1);
+
+        long window = glfwGetCurrentContext();
+        glfwGetWindowSize(window, w, h);
+
+        return w.get() / (float) h.get();
+    }
+
+    public Matrix4f getViewMatrix() {
+        Vector3f target = new Vector3f(direction).add(position);
+        return new Matrix4f().lookAt(position, target, up);
+    }
+
+    public Matrix4f getProjectionMatrix() {
+        return new Matrix4f().perspective(fovy, getAspect(), near, far);
+    }
 
     public Vector3f getUp() {
         return up;
@@ -86,24 +100,5 @@ public class Camera {
     public void setNear(float near) {
         this.near = near;
     }
-
-    public float getAspect() {
-        IntBuffer w = BufferUtils.createIntBuffer(1);
-        IntBuffer h = BufferUtils.createIntBuffer(1);
-
-        long window = glfwGetCurrentContext();
-        glfwGetWindowSize(window, w, h);
-
-        return w.get() / (float) h.get();
-    }
-
-
-    public Matrix4f getViewMatrix() {
-        Vector3f target = new Vector3f(direction).add(position);
-        return new Matrix4f().lookAt(position, target, up);
-    }
-
-    public Matrix4f getProjectionMatrix() {
-        return new Matrix4f().perspective(fovy, getAspect(), near, far);
-    }
 }
+
