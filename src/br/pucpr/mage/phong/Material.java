@@ -17,11 +17,9 @@ public class Material {
         this.specularColor = specularColor;
         this.specularPower = specularPower;
     }
+
     public void setDiffuse() {
-        //ambientColor = new Vector3f(0.8f, 0.0f, 0.8f);
         diffuseColor = new Vector3f(0.80f, 0.0f, 0.80f);
-        //specularColor = new Vector3f(1.0f, 1.0f, 1.0f);
-        //specularPower = 128f;
     }
 
     public Material(Vector3f ambient, Vector3f diffuse) {

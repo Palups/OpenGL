@@ -24,5 +24,4 @@ public class PointLight {
                 .setUniform("uDiffuseLight", diffuseLight)
                 .setUniform("uSpecularLight", specularLight);
     }
-
 }

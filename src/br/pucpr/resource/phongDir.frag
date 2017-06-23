@@ -2,17 +2,17 @@
 
 in vec3 vNormal;
 in vec3 vViewPath;
-out vec4 outColor; //cor da luz ambiente
+out vec4 outColor;
 
-uniform vec3 uAmbientLight; //cor da luz difusa
-uniform vec3 uDiffuseLight; //direção da luz difusa
+uniform vec3 uAmbientLight;
+uniform vec3 uDiffuseLight;
 uniform vec3 uSpecularLight; //Cor do material ambiente
 
 // Propriedade da luz direcional
 uniform vec3 uLightDir;
 
-uniform vec3 uAmbientMaterial; //direção do material difusa
-uniform vec3 uDiffuseMaterial; //cor da luz especular
+uniform vec3 uAmbientMaterial;
+uniform vec3 uDiffuseMaterial;
 uniform vec3 uSpecularMaterial;
 
 //Sensibilidade do material a luz especular

@@ -6,7 +6,6 @@ import java.util.Random;
 
 /**
  * Created by Palups on 22/06/2017.
- * Trabalho e TDE Perlim Noise
  */
 public class Noise {
     int width, height;
@@ -66,27 +65,22 @@ public class Noise {
 
         for (int i = 0; i < width; i++)
         {
-            //calculate the horizontal sampling indices
             int i0 = (i / samplePeriod) * samplePeriod;
-            int i1 = (i0 + samplePeriod) % width; //wrap around
+            int i1 = (i0 + samplePeriod) % width;
             float horizontal_blend = (i - i0) * sampleFrequency;
 
             for (int j = 0; j < height; j++)
             {
-                //calculate the vertical sampling indices
                 int j0 = (j / samplePeriod) * samplePeriod;
-                int j1 = (j0 + samplePeriod) % height; //wrap around
+                int j1 = (j0 + samplePeriod) % height;
                 float vertical_blend = (j - j0) * sampleFrequency;
 
-                //blend the top two corners
                 float top = Interpolate(baseNoise[i0][j0],
                         baseNoise[i1][j0], horizontal_blend);
 
-                //blend the bottom two corners
                 float bottom = Interpolate(baseNoise[i0][j1],
                         baseNoise[i1][j1], horizontal_blend);
 
-                //final blend
                 smoothNoise[i][j] = Interpolate(top, bottom, vertical_blend);
             }
         }
@@ -99,11 +93,10 @@ public class Noise {
         int width = baseNoise.length;
         int height = baseNoise[0].length;
 
-        float[][][] smoothNoise = new float[octaveCount][][]; //an array of 2D arrays containing
+        float[][][] smoothNoise = new float[octaveCount][][];
 
         float persistance = 0.5f;
 
-        //generate smooth noise
         for (int i = 0; i < octaveCount; i++)
         {
             smoothNoise[i] = GenerateSmoothNoise(baseNoise, i);
@@ -113,29 +106,19 @@ public class Noise {
         float amplitude = 1.0f;
         float totalAmplitude = 0.0f;
 
-        //blend noise together
         for (int octave = octaveCount - 1; octave >= 0; octave--)
         {
             amplitude *= persistance;
             totalAmplitude += amplitude;
 
             for (int i = 0; i < width; i++)
-            {
                 for (int j = 0; j < height; j++)
-                {
                     perlinNoise[i][j] += smoothNoise[octave][i][j] * amplitude;
-                }
-            }
         }
 
-        //normalisation
         for (int i = 0; i < width; i++)
-        {
             for (int j = 0; j < height; j++)
-            {
                 perlinNoise[i][j] /= totalAmplitude;
-            }
-        }
 
         return perlinNoise;
     }
