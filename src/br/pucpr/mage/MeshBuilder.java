@@ -2,15 +2,23 @@ package br.pucpr.mage;
 
 import static org.lwjgl.opengl.GL30.glBindVertexArray;
 
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 
 import org.joml.Vector2f;
 import org.joml.Vector3f;
 import org.joml.Vector4f;
 import org.lwjgl.BufferUtils;
+
+import javax.imageio.ImageIO;
 
 /**
  * Classe responsável em construir o mesh.

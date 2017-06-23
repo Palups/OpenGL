@@ -8,30 +8,30 @@ import java.util.Set;
 
 public class Keyboard  {
     private static Keyboard INSTANCE = new Keyboard();
-    
+
     private Set<Integer> pressedKeys = new HashSet<>();
     private Set<Integer> downKeys = new HashSet<>();
     private Set<Integer> releasedKeys = new HashSet<>();
-        
-    private Keyboard() {        
+
+    private Keyboard() {
     }
-    
+
     public static Keyboard getInstance() {
         return INSTANCE;
     }
-    
+
     public boolean isPressed(int key) {
         return pressedKeys.contains(key);
     }
-    
+
     public boolean isDown(int key) {
         return downKeys.contains(key);
     }
-    
+
     public boolean isReleased(int key) {
         return releasedKeys.contains(key);
     }
-    
+
     void set(int key, int action) {
         if (action == GLFW_PRESS) {
             downKeys.add(key);
@@ -42,7 +42,7 @@ public class Keyboard  {
             releasedKeys.add(key);
         }
     }
-    
+
     void update() {
         pressedKeys.clear();
         releasedKeys.clear();
