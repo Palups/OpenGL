@@ -242,7 +242,7 @@ public class MeshFactory  {
                         //Face esquerda
                         20, 23, 22,
                         20, 21, 23)
-                .loadShader("/br/pucpr/resource/phongDir")
+                .loadShader("/br/pucpr/resource/phong")
                 .create();
     }
 
