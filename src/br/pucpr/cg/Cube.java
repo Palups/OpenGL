@@ -10,13 +10,14 @@ import br.pucpr.mage.Mesh;
 import br.pucpr.mage.MeshBuilder;
 import br.pucpr.mage.Scene;
 import br.pucpr.mage.Window;
+import org.joml.Vector3f;
 /**
  * Created by Palups on 21/06/2017.
  */
 public class Cube implements Scene {
-
     private Keyboard keys = Keyboard.getInstance();
     private Mesh mesh;
+    private Camera camera = new Camera();
     private float angleY = 10.0f;
     private float angleX = 10.0f;
 
@@ -25,7 +26,7 @@ public class Cube implements Scene {
         glEnable(GL_DEPTH_TEST);
         glEnable(GL_CULL_FACE);
         glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-
+        camera.setPosition(new Vector3f(0.0f, 2.0f, 2.0f));
         mesh = new MeshBuilder()
                 .addVector3fAttribute("aPosition",
                         //Face afastada
@@ -58,7 +59,6 @@ public class Cube implements Scene {
                         -0.5f,  0.5f,  0.5f,   //21
                         -0.5f, -0.5f, -0.5f,  //22
                         -0.5f,  0.5f, -0.5f)  //23
-
                 .addVector3fAttribute("aColor",
                         //Face traseira
                         0.0f, 0.0f, 1.0f,
@@ -122,18 +122,18 @@ public class Cube implements Scene {
             return;
         }
 
-        if (keys.isDown(GLFW_KEY_A)) {
+        if (keys.isDown(GLFW_KEY_D)) {
             angleY += Math.toRadians(180) * secs;
         }
 
-        if (keys.isDown(GLFW_KEY_D)) {
+        if (keys.isDown(GLFW_KEY_A)) {
             angleY -= Math.toRadians(180) * secs;
         }
 
-        if (keys.isDown(GLFW_KEY_S)) {
+        if (keys.isDown(GLFW_KEY_W)) {
             angleX += Math.toRadians(180) * secs;
         }
-        if (keys.isDown(GLFW_KEY_W)) {
+        if (keys.isDown(GLFW_KEY_S)) {
             angleX -= Math.toRadians(180) * secs;
         }
     }
@@ -141,6 +141,10 @@ public class Cube implements Scene {
     @Override
     public void draw() {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        mesh.getShader().bind()
+                .setUniform("uProjection", camera.getProjectionMatrix())
+                .setUniform("uView", camera.getViewMatrix())
+                .unbind();
         mesh.setUniform("uWorld",new Matrix4f().rotateX(angleX).rotateY(angleY));
         mesh.draw();
     }
@@ -150,6 +154,6 @@ public class Cube implements Scene {
     }
 
     public static void main(String[] args) {
-        new Window(new Cube(), "Cube", 600, 600).show();
+        new Window(new Cube(), "Cubed", 600, 600).show();
     }
 }

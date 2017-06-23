@@ -15,7 +15,7 @@ import static org.lwjgl.opengl.GL11.*;
 /**
  * Created by Palups on 22/06/2017.
  */
-public class TerrainPerlinNoise implements Scene{
+public class DynamicTerrain implements Scene{
     private Keyboard keys = Keyboard.getInstance();
 
     private Camera camera = new Camera();
@@ -120,7 +120,7 @@ public class TerrainPerlinNoise implements Scene{
     public void deinit() {}
 
     public static void main(String[] args) {
-        new Window(new TerrainPerlinNoise(), "TDE terrain", 1024,768).show();
+        new Window(new DynamicTerrain(), "TDE terrain", 1024,768).show();
     }
 
 }

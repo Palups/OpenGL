@@ -15,6 +15,7 @@ import org.joml.Vector3f;
  * Classe utilizada para testar luz posicional (atividade 8).
  */
 public class CubeLight implements Scene {
+
     private Keyboard keys = Keyboard.getInstance();
 
     private Mesh mesh;
