@@ -13,22 +13,16 @@ import org.lwjgl.BufferUtils;
 import br.pucpr.mage.Keyboard;
 import br.pucpr.mage.Scene;
 import br.pucpr.mage.Window;
-
+/**
+ * Created by Palups on 10/04/2017.
+ */
 public class Triangle implements Scene {
 
-	private static final String VERTEX_SHADER =
-			"#version 330\n" +
-					"in vec2 aPosition;\n" +
-					"void main(){\n" +
-					"	gl_Position = vec4(aPosition, 0.0, 1.0);\n" +
-					"}";
+	private static final String VERTEX_SHADER = "#version 330\n" + "in vec2 aPosition;\n" + "void main(){\n" +
+			"	gl_Position = vec4(aPosition, 0.0, 1.0);\n" + "}";
 
-	private static final String FRAGMENT_SHADER	=
-			"#version 330\n" +
-					"out vec4 out_color;\n" +
-					"void main(){\n" +
-					"out_color = vec4(1.0, 1.0, 0.0, 1.0);\n" +
-					"}";
+	private static final String FRAGMENT_SHADER	= "#version 330\n" + "out vec4 out_color;\n" + "void main(){\n" +
+			"out_color = vec4(1.0, 1.0, 0.0, 1.0);\n" + "}";
 
     private Keyboard keys = Keyboard.getInstance();
 
